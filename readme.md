@@ -1,0 +1,36 @@
+# Elastic Web Components Tools
+
+ Elastic Web Components Tools is a Chrome extension designed to assist developers and designers in visually identifying and interacting with web components. This tool provides an interface to highlight components in live pages, change themes, report on numbers of components and instances.
+
+## Features
+
+- **Component Detection**: Automatically detects all web components starting with the "ewc" prefix.
+- **Visual Highlighting**: Allows users to select web components from a dropdown menu to highlight them on the page.
+- **Theme Management**: Users can switch between predefined themes to see how components react to different styles.
+
+## Installation
+
+1. **Install the extension:**
+   ```bash
+- Navigate to Chrome Extensions:
+- Open Google Chrome.
+- Enter chrome://extensions/ in the address bar.
+- Enable Developer Mode (toggle switch at the top right corner).
+- Load the unpacked extension:
+- Click on 'Load unpacked'.
+- Navigate to the tools/ewc-inspector directory and select.
+    ```
+
+
+## Usage
+
+1. Open a webpage that contains Elastic Web Components (components prefixed with "ewc").
+2. Click on the extension icon in the Chrome toolbar to open the popup interface.
+3. Interact with the following elements in the popup:
+ - Detected System: Displays if "Elastic Web Components" are detected.
+ - Component Instances: Shows the total number of component instances found.
+ - Unique Components: Lists the number of unique components.
+ - Themes Select: Dropdown to switch between available themes.
+ - Highlight Components Select: Dropdown to choose a component to highlight. Includes a 'None' option to remove highlights.
+4. Select a component to highlight: Choose a component from the 'Highlight Components' dropdown. The selected component will be visually highlighted on the webpage.
+5. Change theme: If there are multple themes, select a different theme from the 'Themes' dropdown to apply it.
