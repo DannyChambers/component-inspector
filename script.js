@@ -1,10 +1,8 @@
-let systemName = "",
-  systemThemes = [];
+let systemName = "";
 
 const data = [
   {
-    name: "{NAME OF YOUR SYSTEM}",
-    themes: ["brand-1"],
+    name: "Milton",
   },
 ];
 
@@ -31,12 +29,7 @@ const detectSystems = (data) => {
   if (localStorage.getItem("COMPONENT-TOOLS")) {
     localDSSettings = JSON.parse(localStorage.getItem("COMPONENT-TOOLS"));
   } else {
-    localDSSettings = JSON.parse(
-      localStorage.setItem(
-        "COMPONENT-TOOLS",
-        JSON.stringify({ theme: "brand-1" })
-      )
-    );
+    localDSSettings = JSON.parse(localStorage.setItem("COMPONENT-TOOLS"));
   }
 
   return {
@@ -57,7 +50,6 @@ const buildPopUpTools = (
   data.forEach((item) => {
     if (systemDetections.length) {
       systemName = item.name;
-      systemThemes = item.themes;
 
       // Update system detection information in the UI
       document.getElementById(
@@ -75,15 +67,6 @@ const buildPopUpTools = (
       ).innerHTML = `${uniqueDSComponentDetections.length}`;
       document.getElementById("system-controls").style.display = "block";
 
-      // Build theme options
-      let themeOptions = "";
-      systemThemes.forEach((theme, i) => {
-        themeOptions += `<option value="${theme}" ${
-          i === 0 ? "selected" : ""
-        }>${theme} (default)</option>`;
-      });
-      document.getElementById("themes-select").innerHTML = themeOptions;
-
       // Build component options with 'None' as the first option
       let componentOptions = '<option value="none" selected>None</option>';
       uniqueDSComponentDetections.forEach((component) => {
@@ -93,17 +76,6 @@ const buildPopUpTools = (
         componentOptions;
     }
   });
-};
-
-const changeTheme = (selectedValue) => {
-  let localSettings = JSON.parse(localStorage.getItem("COMPONENT-TOOLS"));
-
-  localStorage.setItem("DSTheme", selectedValue);
-  localStorage.setItem(
-    "COMPONENT-TOOLS",
-    JSON.stringify({ ...localSettings, theme: selectedValue })
-  );
-  window.dispatchEvent(new Event("storage"));
 };
 
 const highlightComponents = (selectedComponent) => {
@@ -177,19 +149,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     );
   });
-
-  document
-    .querySelector("#themes-select")
-    .addEventListener("change", function (event) {
-      const selectedValue = event.target.value;
-      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.scripting.executeScript({
-          target: { tabId: tabs[0].id, allFrames: true },
-          func: changeTheme,
-          args: [selectedValue],
-        });
-      });
-    });
 
   document
     .querySelector("#highlight-components-select")
