@@ -1,224 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>EWC Component Inspector</title>
-    <meta charset="utf-8">
+  <head>
+    <title>Component Inspector</title>
+    <meta charset="utf-8" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      html {
+        font-size: 62.5%;
+      }
 
-        html {
-            font-size: 62.5%;
-        }
+      body {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-variation-settings: "slnt" 0;
+      }
 
-        body {
-            font-family: "Inter", sans-serif;
-            font-optical-sizing: auto;
-            font-style: normal;
-            font-variation-settings: "slnt" 0;
-        }
+      h1 {
+        font-size: 1.6rem;
+        vertical-align: middle;
+        display: flex;
+        font-weight: bold;
+        padding-bottom: 24px;
+      }
 
-        h1 {
-            font-size: 1.6rem;
-            vertical-align: middle;
-            display: flex;
-            font-weight: bold;
-            padding-bottom: 24px;
-        }
+      .logo {
+        margin: -3px 12px 0 0;
+        width: 24px;
+        height: 24px;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+      }
 
-        .logo {
-            margin: -3px 12px 0 0;
-            width: 24px;
-            height: 24px;
-            aspect-ratio: 1 / 1;
-            overflow: hidden;
-        }
+      .container {
+        padding: 24px;
+        width: 400px;
+      }
 
-        .container {
-            padding: 24px;
-            width: 400px;
-        }
+      p.large {
+        font-size: 1.4rem;
+        line-height: 2rem;
+        font-weight: normal;
+        padding-bottom: 24px;
+      }
 
-        p.large {
-            font-size: 1.4rem;
-            line-height: 2rem;
-            font-weight: normal;
-            padding-bottom: 24px;
-        }
+      em {
+        font-weight: bold;
+      }
 
-        em {
-            font-weight: bold;
-        }
+      p,
+      li,
+      dt,
+      dd {
+        font-size: 1.3rem;
+        line-height: 2rem;
+        padding-bottom: 6px;
+      }
 
-        p, li, dt, dd {
-            font-size: 1.3rem;
-            line-height: 2rem;
-            padding-bottom: 6px;
-        }
+      dl {
+        overflow: hidden;
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid #efefef;
+      }
 
-        dl {
-            overflow: hidden;
-            padding-bottom: 12px;
-            margin-bottom: 12px;
-            border-bottom: 1px solid #efefef;
-        }
+      dt,
+      dd {
+        float: left;
+        width: 80%;
+      }
 
-        dt, dd {
-            float: left;
-            width: 80%;
-        }
+      dd {
+        width: 20%;
+        text-align: right;
+      }
 
-        dd {
-            width: 20%;
-            text-align: right;
-        }
+      #system-controls {
+        display: none;
+      }
 
-        #system-controls {
-            display: none;
-        }
+      .form-row {
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #efefef;
+      }
 
-        .form-row {
-            padding-bottom: 12px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid #efefef;
-        }
+      .form-row:last-child {
+        border: none;
+        margin: 0;
+        padding: 0;
+      }
 
-        .form-row:last-child {
-            border: none;
-            margin: 0;
-            padding: 0;
-        }
+      label {
+        font-size: 1.3rem;
+        line-height: 2rem;
+        font-weight: bold;
+        padding-right: 10px;
+      }
 
-        label {
-            font-size: 1.3rem;
-            line-height: 2rem;
-            font-weight: bold;
-            padding-right: 10px;
-        }
+      .switch {
+        background-color: #ddd;
+        border-radius: 18px;
+        cursor: pointer;
+        display: inline-block;
+        height: 25px;
+        position: relative;
+        vertical-align: top;
+        width: 56px;
+      }
+      .switch-input {
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+        cursor: pointer;
+      }
+      .switch-label {
+        background: #eceeef none repeat scroll 0 0;
+        border-radius: inherit;
+        display: block;
+        font-size: 10px;
+        height: inherit;
+        position: relative;
+        text-transform: uppercase;
+        transition: all 0.15s ease-out 0s;
+      }
+      .switch-label::before,
+      .switch-label::after {
+        line-height: 1;
+        margin-top: -0.5em;
+        position: absolute;
+        top: 50%;
+        transition: inherit;
+      }
+      .switch-input:checked ~ .switch-label {
+        background: #47a8d8 none repeat scroll 0 0;
+      }
+      .switch-handle {
+        background-color: #fff;
+        border-radius: 10px;
+        height: 18px;
+        left: 4px;
+        position: absolute;
+        top: 4px;
+        transition: left 0.15s ease-out 0s;
+        width: 18px;
+      }
+      .switch-handle::before {
+        background-color: #f9f9f9;
+        border-radius: 6px;
+        content: "";
+        height: 12px;
+        left: 50%;
+        margin: -7px 0 0 -6px;
+        position: absolute;
+        top: 50%;
+        width: 12px;
+      }
+      .switch-input:checked ~ .switch-handle {
+        left: 34px;
+      }
 
-        .switch {
-            background-color: #ddd;
-            border-radius: 18px;
-            cursor: pointer;
-            display: inline-block;
-            height: 25px;
-            position: relative;
-            vertical-align: top;
-            width: 56px;
-        }
-        .switch-input {
-            left: 0;
-            opacity: 0;
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 99;
-            cursor: pointer;
-        }
-        .switch-label {
-            background: #eceeef none repeat scroll 0 0;
-            border-radius: inherit;
-            display: block;
-            font-size: 10px;
-            height: inherit;
-            position: relative;
-            text-transform: uppercase;
-            transition: all 0.15s ease-out 0s;
-        }
-        .switch-label::before, .switch-label::after {
-            line-height: 1;
-            margin-top: -0.5em;
-            position: absolute;
-            top: 50%;
-            transition: inherit;
-        }
-        .switch-input:checked ~ .switch-label {
-            background: #47a8d8 none repeat scroll 0 0;
-        }
-        .switch-handle {
-            background-color: #fff;
-            border-radius: 10px;
-            height: 18px;
-            left: 4px;
-            position: absolute;
-            top: 4px;
-            transition: left 0.15s ease-out 0s;
-            width: 18px;
-        }
-        .switch-handle::before {
-            background-color: #f9f9f9;
-            border-radius: 6px;
-            content: "";
-            height: 12px;
-            left: 50%;
-            margin: -7px 0 0 -6px;
-            position: absolute;
-            top: 50%;
-            width: 12px;
-        }
-        .switch-input:checked ~ .switch-handle {
-            left: 34px;
-        }
-
-        select {
-            background-color: #eceeef;
-            cursor: pointer;
-            display: inline-block;
-            height: 25px;
-            border: none;
-            padding: 0 3px;
-        }
-
+      select {
+        background-color: #eceeef;
+        cursor: pointer;
+        display: inline-block;
+        height: 25px;
+        border: none;
+        padding: 0 3px;
+      }
     </style>
-
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
+      <h1>
+        <span class="logo">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 256 256"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMinYMin meet"
+          >
+            <path
+              d="M255.96 134.393c0-21.521-13.373-40.117-33.223-47.43a75.239 75.239 0 0 0 1.253-13.791c0-39.909-32.386-72.295-72.295-72.295-23.193 0-44.923 11.074-58.505 30.088-6.686-5.224-14.835-7.94-23.402-7.94-21.104 0-38.446 17.133-38.446 38.446 0 4.597.836 9.194 2.298 13.373C13.582 81.739 0 100.962 0 122.274c0 21.522 13.373 40.327 33.431 47.64-.835 4.388-1.253 8.985-1.253 13.79 0 39.7 32.386 72.087 72.086 72.087 23.402 0 44.924-11.283 58.505-30.088 6.686 5.223 15.044 8.149 23.611 8.149 21.104 0 38.446-17.134 38.446-38.446 0-4.597-.836-9.194-2.298-13.373 19.64-7.104 33.431-26.327 33.431-47.64z"
+              fill="#FFF"
+            />
+            <path
+              d="M100.085 110.364l57.043 26.119 57.669-50.565a64.312 64.312 0 0 0 1.253-12.746c0-35.52-28.834-64.355-64.355-64.355-21.313 0-41.162 10.447-53.072 27.998l-9.612 49.73 11.074 23.82z"
+              fill="#F4BD19"
+            />
+            <path
+              d="M40.953 170.75c-.835 4.179-1.253 8.567-1.253 12.955 0 35.52 29.043 64.564 64.564 64.564 21.522 0 41.372-10.656 53.49-28.208l9.403-49.729-12.746-24.238-57.251-26.118-56.207 50.774z"
+              fill="#3CBEB1"
+            />
+            <path
+              d="M40.536 71.918l39.073 9.194 8.775-44.506c-5.432-4.179-11.91-6.268-18.805-6.268-16.925 0-30.924 13.79-30.924 30.924 0 3.552.627 7.313 1.88 10.656z"
+              fill="#E9478C"
+            />
+            <path
+              d="M37.192 81.32c-17.551 5.642-29.67 22.567-29.67 40.954 0 17.97 11.074 34.059 27.79 40.327l54.953-49.73-10.03-21.52-43.043-10.03z"
+              fill="#2C458F"
+            />
+            <path
+              d="M167.784 219.852c5.432 4.18 11.91 6.478 18.596 6.478 16.925 0 30.924-13.79 30.924-30.924 0-3.761-.627-7.314-1.88-10.657l-39.073-9.193-8.567 44.296z"
+              fill="#95C63D"
+            />
+            <path
+              d="M175.724 165.317l43.043 10.03c17.551-5.85 29.67-22.566 29.67-40.954 0-17.97-11.074-33.849-27.79-40.326l-56.415 49.311 11.492 21.94z"
+              fill="#176655"
+            />
+          </svg>
+        </span>
+        Component Tools
+      </h1>
 
-        <h1>
-            <span class="logo">
-                <svg width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet"><path d="M255.96 134.393c0-21.521-13.373-40.117-33.223-47.43a75.239 75.239 0 0 0 1.253-13.791c0-39.909-32.386-72.295-72.295-72.295-23.193 0-44.923 11.074-58.505 30.088-6.686-5.224-14.835-7.94-23.402-7.94-21.104 0-38.446 17.133-38.446 38.446 0 4.597.836 9.194 2.298 13.373C13.582 81.739 0 100.962 0 122.274c0 21.522 13.373 40.327 33.431 47.64-.835 4.388-1.253 8.985-1.253 13.79 0 39.7 32.386 72.087 72.086 72.087 23.402 0 44.924-11.283 58.505-30.088 6.686 5.223 15.044 8.149 23.611 8.149 21.104 0 38.446-17.134 38.446-38.446 0-4.597-.836-9.194-2.298-13.373 19.64-7.104 33.431-26.327 33.431-47.64z" fill="#FFF"/><path d="M100.085 110.364l57.043 26.119 57.669-50.565a64.312 64.312 0 0 0 1.253-12.746c0-35.52-28.834-64.355-64.355-64.355-21.313 0-41.162 10.447-53.072 27.998l-9.612 49.73 11.074 23.82z" fill="#F4BD19"/><path d="M40.953 170.75c-.835 4.179-1.253 8.567-1.253 12.955 0 35.52 29.043 64.564 64.564 64.564 21.522 0 41.372-10.656 53.49-28.208l9.403-49.729-12.746-24.238-57.251-26.118-56.207 50.774z" fill="#3CBEB1"/><path d="M40.536 71.918l39.073 9.194 8.775-44.506c-5.432-4.179-11.91-6.268-18.805-6.268-16.925 0-30.924 13.79-30.924 30.924 0 3.552.627 7.313 1.88 10.656z" fill="#E9478C"/><path d="M37.192 81.32c-17.551 5.642-29.67 22.567-29.67 40.954 0 17.97 11.074 34.059 27.79 40.327l54.953-49.73-10.03-21.52-43.043-10.03z" fill="#2C458F"/><path d="M167.784 219.852c5.432 4.18 11.91 6.478 18.596 6.478 16.925 0 30.924-13.79 30.924-30.924 0-3.761-.627-7.314-1.88-10.657l-39.073-9.193-8.567 44.296z" fill="#95C63D"/><path d="M175.724 165.317l43.043 10.03c17.551-5.85 29.67-22.566 29.67-40.954 0-17.97-11.074-33.849-27.79-40.326l-56.415 49.311 11.492 21.94z" fill="#176655"/></svg>
-            </span>
-            Component Tools
-        </h1>
+      <p class="large" id="detected-system">
+        No component system was detected on this page.
+      </p>
 
-        <p class="large" id="detected-system">No component system was detected on this page.</p>
+      <!-- <p>Estimated coverage (page)</p> -->
 
-        <!-- <p>Estimated coverage (page)</p> -->
+      <dl>
+        <dt id="components-label">Number of component instances:</dt>
+        <dd id="components-value">0</dd>
+        <dt id="unique-components-label">Number of unique components:</dt>
+        <dd id="unique-components-value">0</dd>
+      </dl>
 
-        <dl>
-            <dt id="components-label">Number of component instances: </dt>
-            <dd id="components-value">0</dd>
-            <dt id="unique-components-label">Number of unique components: </dt>
-            <dd id="unique-components-value">0</dd>
-        </dl>
-
-        <form id="system-controls">
-            <div class="form-row">
-                <label for="themes-select">Available themes</label>
-                <select id="themes-select">
-                </select>
-            </div>
-            <div class="form-row">
-                <label for="highlight-components-select">Highlight component</label>
-                <select id="highlight-components-select">
-                </select>
-            </div>
-        </form>
-
+      <form id="system-controls">
+        <div class="form-row">
+          <label for="themes-select">Available themes</label>
+          <select id="themes-select"></select>
+        </div>
+        <div class="form-row">
+          <label for="highlight-components-select">Highlight component</label>
+          <select id="highlight-components-select"></select>
+        </div>
+      </form>
     </div>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
