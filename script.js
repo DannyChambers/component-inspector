@@ -2,7 +2,7 @@ let systemName = "";
 
 const data = [
   {
-    name: "Milton",
+    name: "Bateson",
   },
 ];
 
@@ -29,7 +29,9 @@ const detectSystems = (data) => {
   if (localStorage.getItem("COMPONENT-TOOLS")) {
     localDSSettings = JSON.parse(localStorage.getItem("COMPONENT-TOOLS"));
   } else {
-    localDSSettings = JSON.parse(localStorage.setItem("COMPONENT-TOOLS"));
+    // Initialize COMPONENT-TOOLS if it doesn't exist
+    localStorage.setItem("COMPONENT-TOOLS", JSON.stringify({}));
+    localDSSettings = {};
   }
 
   return {

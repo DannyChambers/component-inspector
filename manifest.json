@@ -3,8 +3,14 @@
   "name": "Web Component Inspector",
   "version": "1.0",
   "description": "Detects Web Components on web pages and provides tools for interaction.",
-  "permissions": ["activeTab", "tabs", "storage", "scripting"],
-  "host_permissions": [],
+  "permissions": ["activeTab", "scripting", "tabs"],
+  "host_permissions": ["https://engineeredarts.designtechnologist.co.uk/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://engineeredarts.designtechnologist.co.uk/*"],
+      "js": ["content.js"]
+    }
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
